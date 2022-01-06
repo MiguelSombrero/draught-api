@@ -1,9 +1,9 @@
 const { Sequelize, Model, DataTypes } = require('sequelize')
 
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
-    dialectOptions: {},
-  })
-  
+  dialectOptions: {},
+})
+
 class Draught extends Model {}
 Draught.init({
   id: {

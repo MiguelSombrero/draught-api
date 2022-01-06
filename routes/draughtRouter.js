@@ -3,25 +3,25 @@ const Draught = require('../model/draught')
 const koaBody = require('koa-body')
 
 const draughtRouter = new Router({
-    prefix: '/api/draught'
+  prefix: '/api/draught'
+})
+
+draughtRouter
+  .get('/', async (ctx, next) => {
+    try {
+      ctx.body = await Draught.findAll()
+    } catch (error) {
+      ctx.throw(400, error)
+    }
   })
-  
-  draughtRouter
-    .get('/', async (ctx, next) => {
-      try {
-        ctx.body = await Draught.findAll()
-      } catch (error) {
-        ctx.throw(400, error)
-      }
-    })
-    .post('/', koaBody(), async (ctx, next) => {
-      try {
-        const draught = Draught.build(ctx.request.body)
-        console.log(ctx.request.body)
-        ctx.body = await draught.save()
-      } catch (error) {
-        ctx.throw(400, error)
-      }
-    });
-  
-    module.exports = draughtRouter
+  .post('/', koaBody(), async (ctx, next) => {
+    try {
+      const body = ctx.request.body
+      const draught = Draught.build(body)
+      ctx.body = await draught.save()
+    } catch (error) {
+      ctx.throw(400, 'saving draught failed')
+    }
+  })
+
+module.exports = draughtRouter
