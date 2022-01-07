@@ -1,4 +1,4 @@
-const config = require('./utils/config')
+const config = require('../utils/config')
 const { Sequelize, Model, DataTypes } = require('sequelize')
 
 const sequelize = new Sequelize(config.DATABASE_URL, {
