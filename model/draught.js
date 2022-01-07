@@ -1,8 +1,6 @@
 const config = require('../utils/config')
 const { Sequelize, Model, DataTypes } = require('sequelize')
 
-console.log(`database url is: ${config.DATABASE_URL}`)
-
 const sequelize = new Sequelize(config.DATABASE_URL, {
   dialectOptions: {},
 })
