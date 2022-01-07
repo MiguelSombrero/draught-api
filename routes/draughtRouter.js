@@ -7,14 +7,14 @@ const draughtRouter = new Router({
 })
 
 draughtRouter
-  .get('/', async (ctx, next) => {
+  .get('/', async (ctx) => {
     try {
       ctx.body = await Draught.findAll()
     } catch (error) {
       ctx.throw(400, error)
     }
   })
-  .post('/', koaBody(), async (ctx, next) => {
+  .post('/', koaBody(), async (ctx) => {
     try {
       const body = ctx.request.body
       const draught = Draught.build(body)

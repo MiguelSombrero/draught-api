@@ -1,11 +1,7 @@
 const config = require('../utils/config')
 const { Sequelize, Model, DataTypes } = require('sequelize')
 
-const sequelize = new Sequelize(config.DATABASE_URL, {
-  dialectOptions: {
-    ssl: config.SSL
-  }
-})
+const sequelize = new Sequelize(config.DATABASE_URL, config.SEQUELIZE_CONF)
 
 class Draught extends Model {}
 Draught.init({

@@ -5,7 +5,7 @@ const defaultRouter = new Router({
 })
 
 defaultRouter
-  .get('/', (ctx, next) => {
+  .get('/', (ctx) => {
     ctx.body = 'Hello World!'
   })
 
