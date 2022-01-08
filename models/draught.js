@@ -1,9 +1,8 @@
-const config = require('../utils/config')
-const { Sequelize, Model, DataTypes } = require('sequelize')
-
-const sequelize = new Sequelize(config.DATABASE_URL, config.SEQUELIZE_CONF)
+const { sequelize } = require('../utils/db')
+const { Model, DataTypes } = require('sequelize')
 
 class Draught extends Model {}
+
 Draught.init({
   id: {
     type: DataTypes.INTEGER,
@@ -28,7 +27,5 @@ Draught.init({
   timestamps: false,
   modelName: 'draught'
 })
-
-Draught.sync()
 
 module.exports = Draught

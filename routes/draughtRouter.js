@@ -1,5 +1,5 @@
 const Router = require('@koa/router')
-const Draught = require('../model/draught')
+const { Draught } = require('../models')
 const koaBody = require('koa-body')
 
 const draughtRouter = new Router({

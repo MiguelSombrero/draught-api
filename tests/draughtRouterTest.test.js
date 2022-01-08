@@ -1,7 +1,7 @@
 const app = require('../app')
 const server = app.listen()
 const request = require('supertest').agent(server)
-const Draught = require('../model/draught')
+const Draught = require('../models/draught')
 
 beforeEach(async () => {
   await Draught.sync({ force: true })
