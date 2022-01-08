@@ -8,5 +8,6 @@ if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev') {
 
 module.exports = {
   PORT: process.env.PORT || 3000,
-  DATABASE_URL
+  DATABASE_URL,
+  SECRET: process.env.SECRET
 }

@@ -1,6 +1,7 @@
 const Router = require('@koa/router')
-const { Draught } = require('../models')
+const { Draught, User } = require('../models')
 const koaBody = require('koa-body')
+const { tokenExtractor } = require('../middleware/jwt')
 
 const draughtRouter = new Router({
   prefix: '/api/draught'
@@ -14,11 +15,10 @@ draughtRouter
       ctx.throw(400, error)
     }
   })
-  .post('/', koaBody(), async (ctx) => {
+  .post('/', koaBody(), tokenExtractor, async (ctx) => {
     try {
-      const body = ctx.request.body
-      const draught = Draught.build(body)
-      ctx.body = await draught.save()
+      const user = await User.findByPk(ctx.request.decodedToken.id)
+      ctx.body = await Draught.create({ ...ctx.request.body, userId: user.id })
     } catch (error) {
       ctx.throw(400, 'saving draught failed')
     }

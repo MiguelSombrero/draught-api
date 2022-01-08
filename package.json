@@ -14,9 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^10.1.1",
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
+    "koa-jwt": "^4.0.3",
     "pg": "^8.7.1",
     "sequelize": "^7.0.0-alpha.4"
   },
