@@ -10,8 +10,7 @@ const userRouter = new Router({
 userRouter
   .post('/', koaBody(), async (ctx) => {
     try {
-      const body = ctx.request.body
-      const user = User.build(body)
+      const user = User.build(ctx.request.body)
       const passwordHash = await bcrypt.hash(user.password, 10)
       user.password = passwordHash
       ctx.body = await user.save()
