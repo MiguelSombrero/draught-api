@@ -2,8 +2,8 @@ const { Draught, User } = require('../models')
 const bcrypt = require('bcrypt')
 
 const initializeDatabase = async () => {
-  await Draught.sync({ force: true })
-  await User.sync({ force: true })
+  await Draught.destroy({ where: { } })
+  await User.destroy({ where: { } })
 }
 
 const initializeUsers = async () => {

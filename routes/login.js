@@ -33,7 +33,7 @@ loginRouter.post('/', koaBody(), async (ctx) => {
 
   const token = jwt.sign(userForToken, SECRET)
 
-  ctx.body = { token, username: user.username, name: user.name }
+  ctx.body = { token, id: user.id, username: user.username, name: user.name }
 })
 
 module.exports = loginRouter

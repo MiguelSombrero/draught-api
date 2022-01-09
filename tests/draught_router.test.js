@@ -2,11 +2,12 @@ const app = require('../app')
 const server = app.listen()
 const request = require('supertest').agent(server)
 const helper = require('./test_helper')
+const { sequelize } = require('../utils/db')
 
 let login = null
 
 beforeEach(async () => {
-  await helper.initializeDatabase()
+  //await helper.initializeDatabase()
   await helper.initializeUsers()
 
   login = await request
@@ -14,11 +15,11 @@ beforeEach(async () => {
     .send({ username: 'somero', password: 'miika' })
 })
 
-describe('Saving Draughts in database', function() {
+describe('Using Draughts router', function() {
   describe('POST /draught', function() {
     describe('with valid Draught and token', function() {
       it('should work', async function(done) {
-        await request
+        request
           .post('/api/draught')
           .set('Authorization', 'Bearer ' + login.body.token)
           .send({
@@ -28,7 +29,22 @@ describe('Saving Draughts in database', function() {
           })
           .expect(200)
           .expect('Content-Type', /application\/json/)
-          .expect({ id: 1, beverageType: 'whisky', abv: '40', volume: '0.04' }, done)
+          .expect({ id: 1, beverageType: 'whisky', abv: '40', volume: '0.04', userId: 1 }, done)
+      })
+    })
+
+    describe('with Draught without authorization header', function() {
+      it('should throw 401', async function() {
+        const response = await request
+          .post('/api/draught')
+          .send({
+            beverageType: 'whisky',
+            abv: 40,
+            volume: 0.04
+          })
+          .expect(401)
+
+        expect(response.error.text).toContain('Authentication Error')
       })
     })
 
@@ -46,9 +62,11 @@ describe('Saving Draughts in database', function() {
         expect(response.error.text).toContain('saving draught failed')
       })
     })
+
   })
 })
 
-afterAll(() => {
+afterAll(async () => {
+  sequelize.close()
   server.close()
 })
