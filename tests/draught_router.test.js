@@ -6,8 +6,8 @@ const { sequelize } = require('../utils/db')
 
 let login = null
 
-beforeEach(async () => {
-  //await helper.initializeDatabase()
+beforeAll(async () => {
+  await helper.initializeDatabase()
   await helper.initializeUsers()
 
   login = await request
@@ -18,18 +18,25 @@ beforeEach(async () => {
 describe('Using Draughts router', function() {
   describe('POST /draught', function() {
     describe('with valid Draught and token', function() {
-      it('should work', async function(done) {
-        request
+      it('should work', async function() {
+        const response = await request
           .post('/api/draught')
           .set('Authorization', 'Bearer ' + login.body.token)
           .send({
             beverageType: 'whisky',
-            abv: 40,
-            volume: 0.04
+            abv: 40.0,
+            volume: 40
           })
-          .expect(200)
+          .expect(201)
           .expect('Content-Type', /application\/json/)
-          .expect({ id: 1, beverageType: 'whisky', abv: '40', volume: '0.04', userId: 1 }, done)
+
+        const body = response.body
+
+        expect(body.id).toBeDefined()
+        expect(body.beverageType).toBe('whisky')
+        expect(body.abv).toBe(40.0)
+        expect(body.volume).toBe(40)
+        expect(body.userId).toBe(login.body.id)
       })
     })
 
@@ -39,8 +46,24 @@ describe('Using Draughts router', function() {
           .post('/api/draught')
           .send({
             beverageType: 'whisky',
-            abv: 40,
-            volume: 0.04
+            abv: 40.0,
+            volume: 40
+          })
+          .expect(401)
+
+        expect(response.error.text).toContain('Authentication Error')
+      })
+    })
+
+    describe('with Draught with wrong authorization header', function() {
+      it('should throw 401', async function() {
+        const response = await request
+          .post('/api/draught')
+          .set('Authorization', 'Bearer eiloydy')
+          .send({
+            beverageType: 'whisky',
+            abv: 40.0,
+            volume: 40
           })
           .expect(401)
 
@@ -54,8 +77,8 @@ describe('Using Draughts router', function() {
           .post('/api/draught')
           .set('Authorization', 'Bearer ' + login.body.token)
           .send({
-            abv: 40,
-            volume: 0.04
+            abv: 40.0,
+            volume: 40
           })
           .expect(400)
 
@@ -66,7 +89,7 @@ describe('Using Draughts router', function() {
   })
 })
 
-afterAll(async () => {
+afterAll(() => {
   sequelize.close()
   server.close()
 })

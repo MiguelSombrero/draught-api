@@ -15,11 +15,11 @@ Draught.init({
     allowNull: false
   },
   abv: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.DOUBLE,
     allowNull: false
   },
   volume: {
-    type: DataTypes.DECIMAL,
+    type: DataTypes.INTEGER,
     allowNull: false
   }
 }, {

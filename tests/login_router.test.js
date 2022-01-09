@@ -45,7 +45,7 @@ describe('Using Login router', function() {
       it('fails', async () => {
         const response = await request
           .post('/api/login')
-          .send({ username: 'somero', password: 'eiloydy' })
+          .send({ username: 'somero', password: 'miika' })
           .expect(401)
           .expect('Content-Type', /text\/plain/)
 
