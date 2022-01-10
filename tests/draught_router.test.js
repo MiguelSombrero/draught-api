@@ -29,10 +29,36 @@ describe('Using Draughts router', function() {
         const body = response.body
 
         expect(body.length).toBe(3)
+        expect(body[0].id).toBeDefined()
+        expect(body[0].beverageType).toBeDefined()
+        expect(body[0].abv).toBeDefined()
+        expect(body[0].volume).toBeDefined()
+        expect(body[0].userId).toBe(1)
       })
     })
 
+    describe('without token', function() {
+      it('should throw 401', async function() {
+        const response = await request
+          .get('/api/draught')
+          .expect(401)
+          .expect('Content-Type', /text\/plain/)
 
+        expect(response.error.text).toContain('Authentication Error')
+      })
+    })
+
+    describe('without wrong token', function() {
+      it('should throw 401', async function() {
+        const response = await request
+          .set('Authorization', 'Bearer eiloydy')
+          .get('/api/draught')
+          .expect(401)
+          .expect('Content-Type', /text\/plain/)
+
+        expect(response.error.text).toContain('Authentication Error')
+      })
+    })
   })
 })
 
