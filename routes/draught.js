@@ -8,9 +8,13 @@ const draughtRouter = new Router({
 })
 
 draughtRouter
-  .get('/', async (ctx) => {
+  .get('/', tokenExtractor, async (ctx) => {
     try {
-      ctx.body = await Draught.findAll()
+      ctx.body = await Draught.findAll({
+        where: {
+          userId: ctx.request.decodedToken.id
+        }
+      })
     } catch (error) {
       ctx.throw(400, error)
     }
