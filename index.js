@@ -1,6 +1,7 @@
 require('dotenv').config()
 const app = require('./app')
 const { PORT } = require('./utils/config')
+const { sequelize } = require('./utils/db')
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
@@ -8,4 +9,7 @@ app.listen(PORT, () => {
   console.log('message:', error.message)
   console.log('stack:', error.stack)
   console.log('name:', error.name)
+}).on('close', () => {
+  console.log('closing server')
+  sequelize.close()
 })

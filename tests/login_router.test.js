@@ -55,7 +55,7 @@ describe('Using Login router', function() {
   })
 })
 
-afterAll(async () => {
-  await sequelize.close()
+afterAll(() => {
+  sequelize.close()
   server.close()
 })

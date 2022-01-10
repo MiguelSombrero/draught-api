@@ -22,7 +22,6 @@ loginRouter.post('/', koaBody(), async (ctx) => {
     ? false
     : await bcrypt.compare(body.password, user.password)
 
-  console.log('password is: ' + passwordCorrect)
   if (!(user && passwordCorrect)) {
     ctx.throw(401, 'Unauthorized')
   }

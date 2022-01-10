@@ -33,7 +33,7 @@ describe('Using Users router', function() {
   })
 })
 
-afterAll(async () => {
-  await sequelize.close()
+afterAll(() => {
+  sequelize.close()
   server.close()
 })
