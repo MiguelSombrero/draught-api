@@ -135,6 +135,7 @@ describe('Using Draughts router', function() {
   })
 })
 
-afterAll(() => {
+afterAll(async () => {
+  await sequelize.close()
   server.close()
 })
