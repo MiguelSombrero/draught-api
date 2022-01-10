@@ -14,6 +14,7 @@ userRouter
       const passwordHash = await bcrypt.hash(user.password, 10)
       user.password = passwordHash
       ctx.body = await user.save()
+      ctx.status = 201
     } catch (error) {
       ctx.throw(400, 'saving user failed')
     }
