@@ -6,7 +6,7 @@ const { sequelize } = require('../utils/db')
 
 let login = null
 
-beforeAll(async () => {
+beforeEach(async () => {
   await helper.initializeDatabase()
   await helper.initializeUsers()
   await helper.initializeDraughts()
@@ -136,6 +136,5 @@ describe('Using Draughts router', function() {
 })
 
 afterAll(() => {
-  sequelize.close()
   server.close()
 })

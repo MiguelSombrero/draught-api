@@ -4,7 +4,7 @@ const request = require('supertest').agent(server)
 const helper = require('./test_helper')
 const { sequelize } = require('../utils/db')
 
-beforeAll(async () => {
+beforeEach(async () => {
   await helper.initializeDatabase()
 })
 
@@ -34,6 +34,5 @@ describe('Using Users router', function() {
 })
 
 afterAll(() => {
-  sequelize.close()
   server.close()
 })
