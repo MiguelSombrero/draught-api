@@ -21,7 +21,8 @@
     "koa-body": "^4.2.0",
     "koa-jwt": "^4.0.3",
     "pg": "^8.7.1",
-    "sequelize": "^7.0.0-alpha.4"
+    "sequelize": "^7.0.0-alpha.4",
+    "umzug": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^8.6.0",
