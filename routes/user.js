@@ -16,6 +16,7 @@ userRouter
       ctx.body = await user.save()
       ctx.status = 201
     } catch (error) {
+      console.log(error)
       ctx.throw(400, 'saving user failed')
     }
   })
