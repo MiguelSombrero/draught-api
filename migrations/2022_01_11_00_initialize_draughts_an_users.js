@@ -20,6 +20,8 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false
       },
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     })
     await queryInterface.createTable('users', {
       id: {
@@ -40,6 +42,8 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     })
     await queryInterface.addColumn('draughts', 'user_id', {
       type: DataTypes.INTEGER,
