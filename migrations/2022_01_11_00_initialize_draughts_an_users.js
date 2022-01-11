@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         autoIncrement: true
       },
-      beverageType: {
+      beverage_type: {
         type: DataTypes.TEXT,
         allowNull: false
       },
@@ -20,8 +20,12 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: {
+        type: DataTypes.DATE
+      },
+      updated_at: {
+        type: DataTypes.DATE
+      },
     })
     await queryInterface.createTable('users', {
       id: {
@@ -42,8 +46,12 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false
       },
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      created_at: {
+        type: DataTypes.DATE
+      },
+      updated_at: {
+        type: DataTypes.DATE
+      },
     })
     await queryInterface.addColumn('draughts', 'user_id', {
       type: DataTypes.INTEGER,
