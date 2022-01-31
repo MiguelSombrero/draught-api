@@ -6,5 +6,3 @@ Draught API is a backend for [Draught App](https://github.com/MiguelSombrero/dra
 
 
 
-
-
